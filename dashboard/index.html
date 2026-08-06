@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Information-Theoretic Anomaly Detection</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-content">
+                <h1 class="title">
+                    <span class="icon">📊</span>
+                    Information-Theoretic Anomaly Detection
+                </h1>
+                <p class="subtitle">Entropy-based analysis of financial time series</p>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Control Panel -->
+            <section class="card control-panel">
+                <h2 class="card-title">Control Panel</h2>
+                
+                <div class="control-grid">
+                    <div class="control-group">
+                        <label for="data-source">Data Source</label>
+                        <select id="data-source" class="input">
+                            <option value="sample">Sample Data (SPY)</option>
+                            <option value="upload">Upload CSV</option>
+                            <option value="yahoo">Fetch from Yahoo Finance</option>
+                        </select>
+                    </div>
+
+                    <div class="control-group" id="ticker-group" style="display:none;">
+                        <label for="ticker-input">Ticker Symbol</label>
+                        <input type="text" id="ticker-input" class="input" placeholder="AAPL">
+                    </div>
+
+                    <div class="control-group" id="upload-group" style="display:none;">
+                        <label for="file-input">Upload CSV File</label>
+                        <input type="file" id="file-input" class="input" accept=".csv">
+                    </div>
+
+                    <div class="control-group">
+                        <label for="detector-method">Detection Method</label>
+                        <select id="detector-method" class="input">
+                            <option value="ensemble">Ensemble (Recommended)</option>
+                            <option value="entropy">Entropy-Based</option>
+                            <option value="kl">KL Divergence</option>
+                            <option value="js">JS Divergence</option>
+                            <option value="temporal">Temporal Pattern</option>
+                            <option value="isolation_forest">Isolation Forest</option>
+                            <option value="ocsvm">One-Class SVM</option>
+                        </select>
+                    </div>
+
+                    <div class="control-group">
+                        <label for="window-size">Window Size</label>
+                        <input type="number" id="window-size" class="input" value="50" min="10" max="200">
+                    </div>
+
+                    <div class="control-group">
+                        <label for="threshold">Sensitivity</label>
+                        <input type="range" id="threshold" class="slider" min="0.1" max="1.0" step="0.1" value="0.6">
+                        <span id="threshold-value" class="slider-value">0.6</span>
+                    </div>
+                </div>
+
+                <button id="analyze-btn" class="btn btn-primary">
+                    <span class="btn-icon">🔍</span>
+                    Analyze Data
+                </button>
+            </section>
+
+            <!-- Results Grid -->
+            <div class="results-grid">
+                <!-- Time Series Plot -->
+                <section class="card chart-card">
+                    <h2 class="card-title">Time Series with Anomalies</h2>
+                    <div id="timeseries-chart" class="chart-container">
+                        <div class="placeholder">
+                            <span class="placeholder-icon">📈</span>
+                            <p>Run analysis to visualize time series</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Entropy Evolution -->
+                <section class="card chart-card">
+                    <h2 class="card-title">Entropy Evolution</h2>
+                    <div id="entropy-chart" class="chart-container">
+                        <div class="placeholder">
+                            <span class="placeholder-icon">📉</span>
+                            <p>Entropy metrics will appear here</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Anomaly Statistics -->
+                <section class="card stats-card">
+                    <h2 class="card-title">Anomaly Statistics</h2>
+                    <div id="stats-container" class="stats-container">
+                        <div class="stat-item">
+                            <div class="stat-label">Total Anomalies</div>
+                            <div class="stat-value" id="total-anomalies">-</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-label">Severe</div>
+                            <div class="stat-value severity-severe" id="severe-count">-</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-label">Moderate</div>
+                            <div class="stat-value severity-moderate" id="moderate-count">-</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-label">Mild</div>
+                            <div class="stat-value severity-mild" id="mild-count">-</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-label">Detection Rate</div>
+                            <div class="stat-value" id="detection-rate">-</div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Method Comparison -->
+                <section class="card comparison-card">
+                    <h2 class="card-title">Method Comparison</h2>
+                    <div id="comparison-container" class="comparison-container">
+                        <div class="placeholder">
+                            <span class="placeholder-icon">⚖️</span>
+                            <p>Comparative analysis will appear here</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Anomaly List -->
+                <section class="card list-card">
+                    <h2 class="card-title">Detected Anomalies</h2>
+                    <div id="anomaly-list" class="anomaly-list">
+                        <div class="placeholder">
+                            <span class="placeholder-icon">📋</span>
+                            <p>No anomalies detected yet</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Information Theory Metrics -->
+                <section class="card metrics-card">
+                    <h2 class="card-title">Information Theory Metrics</h2>
+                    <div id="metrics-container" class="metrics-container">
+                        <div class="metric-item">
+                            <span class="metric-label">Shannon Entropy</span>
+                            <span class="metric-value" id="shannon-entropy">-</span>
+                        </div>
+                        <div class="metric-item">
+                            <span class="metric-label">KL Divergence</span>
+                            <span class="metric-value" id="kl-divergence">-</span>
+                        </div>
+                        <div class="metric-item">
+                            <span class="metric-label">JS Divergence</span>
+                            <span class="metric-value" id="js-divergence">-</span>
+                        </div>
+                        <div class="metric-item">
+                            <span class="metric-label">Transfer Entropy</span>
+                            <span class="metric-value" id="transfer-entropy">-</span>
+                        </div>
+                        <div class="metric-item">
+                            <span class="metric-label">Mutual Information</span>
+                            <span class="metric-value" id="mutual-info">-</span>
+                        </div>
+                    </div>
+                </section>
+            </div>
+
+            <!-- Export Options -->
+            <section class="card export-panel">
+                <h2 class="card-title">Export Results</h2>
+                <div class="export-buttons">
+                    <button id="export-json" class="btn btn-secondary" disabled>
+                        <span class="btn-icon">📄</span>
+                        Export JSON
+                    </button>
+                    <button id="export-csv" class="btn btn-secondary" disabled>
+                        <span class="btn-icon">📊</span>
+                        Export CSV
+                    </button>
+                    <button id="export-report" class="btn btn-secondary" disabled>
+                        <span class="btn-icon">📋</span>
+                        Generate Report
+                    </button>
+                </div>
+            </section>
+        </main>
+
+        <!-- Loading Overlay -->
+        <div id="loading-overlay" class="loading-overlay" style="display:none;">
+            <div class="loading-spinner"></div>
+            <p class="loading-text">Analyzing data...</p>
+        </div>
+    </div>
+
+    <script src="https://cdn.plot.ly/plotly-2.26.0.min.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
