@@ -431,6 +431,4 @@ Shannon, Kullback and Leibler for the measures; Schreiber for transfer entropy; 
 6. Liu, F. T., et al. (2008). "Isolation Forest"
 7. Schölkopf, B., et al. (2001). "Estimating the Support of a High-Dimensional Distribution"
 
-## Contact
 
-Open an issue on GitHub for bugs or questions.
